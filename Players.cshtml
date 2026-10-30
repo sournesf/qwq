@@ -1,0 +1,115 @@
+﻿@model List<WebApplication2.Models.Player>
+
+@{
+    ViewData["Title"] = "Управление игроками";
+    var team = ViewBag.Team as WebApplication2.Models.Team;
+}
+
+<div class="container py-5">
+    <div class="card bg-black text-white border-danger shadow-lg">
+        <div class="card-header border-danger p-4">
+            <h1 class="text-danger mb-2">⚔ Управление составом</h1>
+            <p class="text-secondary mb-0">
+                Команда: @(team?.Name ?? "Моя команда")
+            </p>
+        </div>
+
+        <div class="card-body p-4">
+
+            @if (TempData["Success"] != null)
+            {
+                <div class="alert alert-success">
+                    @TempData["Success"]
+                </div>
+            }
+
+            @if (TempData["Error"] != null)
+            {
+                <div class="alert alert-danger">
+                    @TempData["Error"]
+                </div>
+            }
+
+            <div class="d-flex flex-wrap gap-2 mb-4">
+                <a asp-controller="Captain"
+                   asp-action="CreatePlayer"
+                   class="btn btn-danger">
+                    + Добавить игрока
+                </a>
+
+                <a asp-controller="Captain"
+                   asp-action="Index"
+                   class="btn btn-outline-light">
+                    Назад в панель
+                </a>
+            </div>
+
+            @if (Model == null || Model.Count == 0)
+            {
+                <div class="text-center py-5">
+                    <h4 class="text-secondary">Состав пока пуст</h4>
+                    <p>Добавь первого игрока своей команды!</p>
+                </div>
+            }
+            else
+            {
+                <div class="table-responsive">
+                    <table class="table table-dark table-hover align-middle">
+                        <thead>
+                            <tr>
+                                <th>Игрок</th>
+                                <th>Позиция</th>
+                                <th class="text-end">Действия</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var player in Model)
+                            {
+                                <tr>
+                                    <td>
+                                        <div class="d-flex align-items-center gap-3">
+                                            @if (!string.IsNullOrWhiteSpace(player.Image))
+                                            {
+                                                <img src="@player.Image"
+                                                     alt="@player.Nickname"
+                                                     class="rounded"
+                                                     style="width: 55px; height: 55px; object-fit: cover;" />
+                                            }
+
+                                            <strong>@player.Nickname</strong>
+                                        </div>
+                                    </td>
+                                    <td>@player.Position</td>
+                                    <td class="text-end">
+                                        <div class="d-flex justify-content-end flex-wrap gap-2">
+                                            <a asp-controller="Captain"
+                                               asp-action="EditPlayer"
+                                               asp-route-id="@player.PlayerId"
+                                               class="btn btn-sm btn-outline-warning">
+                                                Изменить
+                                            </a>
+
+                                            <form asp-controller="Captain"
+                                                  asp-action="DeletePlayer"
+                                                  asp-route-id="@player.PlayerId"
+                                                  23:45
+                                                  method="post"
+                                                  onsubmit="return confirm('Точно удалить игрока @player.Nickname?');">
+                                                @Html.AntiForgeryToken()
+
+                                                <button type="submit"
+                                                        class="btn btn-sm btn-outline-danger">
+                                                    Удалить
+                                                </button>
+                                            </form>
+                                        </div>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            }
+        </div>
+    </div>
+</div>

@@ -1,0 +1,198 @@
+﻿@model List<WebApplication2.Models.Team>
+
+@{
+    ViewData["Title"] = "Команды Dota 2";
+}
+
+<style>
+    .teams-page {
+        color: #f5f5f5;
+        padding-top: 30px;
+        padding-bottom: 40px;
+    }
+
+    .teams-title {
+        color: #ff4d4d;
+        font-weight: 800;
+        text-align: center;
+        margin-bottom: 12px;
+    }
+
+    .teams-subtitle {
+        color: #aaa;
+        text-align: center;
+        margin-bottom: 35px;
+    }
+
+    .team-card {
+        height: 100%;
+        overflow: hidden;
+        background: #171717;
+        border: 1px solid #632323;
+        border-radius: 14px;
+        transition: transform .2s ease, border-color .2s ease;
+    }
+
+    .team-card:hover {
+        transform: translateY(-5px);
+        border-color: #ff4d4d;
+    }
+
+    .team-logo-container {
+        height: 250px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 18px;
+        background: #101010;
+        border-bottom: 1px solid #632323;
+    }
+
+    .team-logo {
+        display: block;
+        max-width: 100%;
+        max-height: 100%;
+        width: auto;
+        height: auto;
+        object-fit: contain;
+    }
+
+    .team-logo-placeholder {
+        color: #777;
+        text-align: center;
+    }
+
+    .team-name {
+        color: #fff;
+        font-weight: 700;
+        margin-bottom: 18px;
+        overflow-wrap: anywhere;
+    }
+
+    .team-info {
+        color: #ccc;
+        margin-bottom: 9px;
+    }
+
+    .team-info strong {
+        color: #ffb84d;
+    }
+
+    .teams-empty {
+        text-align: center;
+        color: #aaa;
+        padding: 40px 15px;
+        background: #171717;
+        border: 1px solid #333;
+        border-radius: 12px;
+    }
+
+    .teams-home-button {
+        margin-top: 35px;
+    }
+
+    .team-debug {
+        color: #ffe066;
+        font-size: 12px;
+        overflow-wrap: anywhere;
+        margin-top: 8px;
+    }
+</style>
+
+<div class="container teams-page">
+    <h1 class="teams-title">Команды Dota 2</h1>
+
+    <p class="teams-subtitle">
+        Знакомься с командами и их составами
+    </p>
+
+    @if (Model == null || Model.Count == 0)
+    {
+        <div class="teams-empty">
+            <h4>Пока команд нет</h4>
+            <p class="mb-0">Созданные команды появятся здесь.</p>
+        </div>
+    }
+    else
+    {
+        <div class="row g-4">
+            @foreach (var team in Model)
+            {
+                var logoPath = team.Image?.Trim();
+
+                if (!string.IsNullOrWhiteSpace(logoPath))
+                {
+                    logoPath = logoPath.Replace('\\', '/');
+
+                    if (logoPath.StartsWith("~/"))
+                    {
+                        logoPath = logoPath.Substring(1);
+                    }
+
+                    if (!logoPath.StartsWith("/"))
+                    {
+                        logoPath = "/" + logoPath;
+                    }
+                }
+
+                <div class="col-12 col-sm-6 col-lg-4">
+                    <div class="team-card">
+                        <div class="team-logo-container">
+                            @if (!string.IsNullOrWhiteSpace(logoPath))
+                            {
+                                <img src="@logoPath"
+                                     alt="Логотип команды @team.Name"
+                                     class="team-logo"/>
+
+                                <div class="team-logo-placeholder"
+                                     style="display:none;">
+                                    <div class="mb-2">
+                                        <span class="fs-1">⚔</span>
+                                    </div>
+                                    <div>Не удалось загрузить логотип</div>
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="team-logo-placeholder">
+                                    <div class="mb-2">
+                                        <span class="fs-1">⚔</span>
+                                    </div>
+                                    <div>Логотип не добавлен</div>
+                                </div>
+                            }
+                        </div>
+
+                        <div class="card-body p-4 text-center">
+                            <h3 class="team-name">@team.Name</h3>
+
+                            <p class="team-info">
+                                <strong>Страна:</strong> @team.Country
+                            </p>
+
+                            <p class="team-info mb-0">
+                                <strong>Год основания:</strong> @team.Founded
+                            </p>
+
+                            <p class="team-debug">
+                                DEBUG Image: [@(team.Image ?? "NULL")]
+                            </p>
+
+                            <p class="team-debug">
+                                DEBUG URL: [@(logoPath ?? "ПУСТО")]
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+
+    <div class="text-center teams-home-button">
+        <a asp-controller="Home"
+           asp-action="Index"
+           class="btn btn-danger btn-lg">
+            ← На главную
+        </a>
+    </div>
+</div>

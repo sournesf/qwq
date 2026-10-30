@@ -1,0 +1,41 @@
+﻿@model List<WebApplication2.Models.Hero>
+
+@{
+    ViewData["Title"] = "Герои";
+}
+
+<h1 class="text-center mb-5" style="color:#ff4d4d;">Герои Dota 2</h1>
+
+<div class="row">
+
+    @foreach (var hero in Model)
+    {
+        <div class="col-md-4 mb-4">
+            <div class="card bg-dark text-white border-danger h-100 shadow">
+
+                <img src="~/images/@(hero.Image)"
+                     class="card-img-top"
+                     style="height:250px; object-fit:cover;" />
+
+                <div class="card-body">
+                    <h3>@hero.Name</h3>
+
+                    <p><b>Роль:</b> @hero.Role</p>
+
+                    <p>@hero.Description</p>
+                </div>
+
+            </div>
+        </div>
+    }
+
+</div>
+
+<div class="text-center mt-4">
+    <a asp-controller="Home" asp-action="Index" class="btn btn-danger btn-lg">
+        ← На главную
+    </a>
+</div>
+
+
+

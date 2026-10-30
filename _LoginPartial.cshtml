@@ -1,0 +1,50 @@
+﻿
+@using Microsoft.AspNetCore.Identity
+@using WebApplication2.Models
+@inject SignInManager<ApplicationUser> SignInManager
+
+<ul class="navbar-nav">
+    SignInManager.IsSignedIn(User)
+    {
+    <li class="nav-item">
+        <span class="nav-link text-light">
+            Привет, @User.Identity?.Name!
+        </span>
+    </li>
+
+    <li class="nav-item">
+        <form asp-area="Identity"
+              asp-page="/Account/Logout"
+              method="post">
+            @Html.AntiForgeryToken()
+            <button type="submit"
+                    class="nav-link btn btn-link text-light">
+                Выйти
+            </button>
+        </form>
+    </li>
+    }
+    else
+    {
+    <li class="nav-item">
+        <a class="nav-link text-light"
+           asp-area="Identity"
+           asp-page="/Account/Login">
+            Войти
+        </a>
+    </li>
+
+    <li class="nav-item">
+        <a class="nav-link text-light"
+           asp-area="Identity"
+           asp-page="/Account/Register">
+            Регистрация
+        </a>
+    </li>
+    }
+</ul>
+
+
+
+
+

@@ -1,0 +1,50 @@
+﻿@model List<WebApplication2.Models.Tournament>
+
+@{
+    ViewData["Title"] = "Турниры";
+}
+
+<h1 class="text-center mb-5" style="color:#ff4d4d;">
+    Турниры Dota 2
+</h1>
+
+<div class="row">
+
+ @foreach (var tournament in Model)
+{
+    <div class="col-md-4 mb-4">
+        <div class="card bg-dark text-white border-danger h-100 shadow">
+
+            <img src="~/images/@tournament.Image"
+                 class="card-img-top"
+                 style="height:250px; object-fit:contain; background-color:#111;" />
+
+            <div class="card-body text-center">
+
+                <h3>@tournament.Name</h3>
+
+                <p>
+                    <b>Год:</b> @tournament.Year
+                </p>
+
+                <p>
+                    <b>Призовой фонд:</b> @tournament.PrizePool
+                </p>
+
+            </div>
+
+        </div>
+    </div>
+}
+
+</div>
+
+<div class="text-center mt-4">
+    <a asp-controller="Home"
+       asp-action="Index"
+       class="btn btn-danger btn-lg">
+        ← На главную
+    </a>
+</div>
+
+

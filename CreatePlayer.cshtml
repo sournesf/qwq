@@ -1,0 +1,91 @@
+﻿@model WebApplication2.Models.Player
+
+@{
+    ViewData["Title"] = "Добавить игрока";
+}
+
+<div class="container mt-5 mb-5">
+    <div class="card bg-black text-white border-danger shadow-lg mx-auto"
+         style="max-width: 650px;">
+
+        <div class="card-header border-danger p-3">
+            <h2 class="text-danger mb-0">⚔ Добавление игрока</h2>
+        </div>
+
+        <div class="card-body p-4">
+            <p class="text-secondary mb-4">
+                Добавь нового участника в состав своей команды.
+            </p>
+
+            <form asp-controller="Captain"
+                  asp-action="CreatePlayer"
+                  method="post"
+                  enctype="multipart/form-data">
+
+                @Html.AntiForgeryToken()
+
+                <div asp-validation-summary="ModelOnly"
+                     class="text-danger mb-3"></div>
+
+                <div class="mb-3">
+                    <label asp-for="Nickname" class="form-label fw-bold">
+                        Никнейм игрока
+                    </label>
+                    <input asp-for="Nickname"
+                           class="form-control"
+                           placeholder="Например, Miracle-" />
+                    <span asp-validation-for="Nickname"
+                          class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="Position" class="form-label fw-bold">
+                        Позиция
+                    </label>
+                    <select asp-for="Position" class="form-select">
+                        <option value="">Выбери позицию</option>
+                        <option value="Pos 1">Pos 1 — Carry</option>
+                        <option value="Pos 2">Pos 2 — Mid</option>
+                        <option value="Pos 3">Pos 3 — Offlane</option>
+                        <option value="Pos 4">Pos 4 — Soft Support</option>
+                        <option value="Pos 5">Pos 5 — Hard Support</option>
+                    </select>
+                    <span asp-validation-for="Position"
+                          class="text-danger"></span>
+                </div>
+
+                <div class="mb-4">
+                    <label for="imageFile" class="form-label fw-bold">
+                        Фотография игрока
+                    </label>
+
+                    <input type="file"
+                           id="imageFile"
+                           name="imageFile"
+                           class="form-control"
+                           accept=".jpg,.jpeg,.png,.webp,image/jpeg,image/png,image/webp" />
+
+                    <div class="form-text text-secondary">
+                        JPG, JPEG, PNG или WEBP. Максимальный размер — 5 МБ.
+                    </div>
+                </div>
+
+                <div class="d-flex flex-wrap gap-2">
+                    <button type="submit" class="btn btn-danger">
+                        Добавить игрока
+                    </button>
+
+                    <a asp-controller="Captain"
+                       asp-action="Players"
+                       class="btn btn-outline-light">
+                        Назад к составу
+                    </a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

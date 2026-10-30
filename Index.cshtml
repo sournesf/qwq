@@ -1,0 +1,116 @@
+﻿@{
+    ViewData["Title"] = "Админ-панель";
+}
+
+<div class="container mt-5 mb-5">
+    <div class="text-center mb-5">
+        <h1 class="display-4 fw-bold" style="color: #ff6046;">
+            DOTA 2 — АДМИН-ПАНЕЛЬ
+        </h1>
+        <p class="text-light">
+            Управление сайтом и игровыми данными
+        </p>
+    </div>
+
+    <div class="row g-4">
+
+        <div class="col-md-6 col-lg-4">
+            <div class="card bg-dark text-light border-danger h-100">
+                <div class="card-body">
+                    <h4>  Пользователи</h4>
+                    <p>Аккаунты и управление ролями.</p>
+                    <a asp-controller="Admin"
+                       asp-action="Users"
+                       class="btn btn-danger">
+                        Управлять пользователями
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6 col-lg-4">
+            <div class="card bg-dark text-light border-danger h-100">
+                <div class="card-body">
+                    <h4>Герои</h4>
+                    <p>Просмотр базы героев Dota 2.</p>
+                    <a asp-controller="Heroes" asp-action="Index"
+                       class="btn btn-outline-danger">
+                        Открыть раздел
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6 col-lg-4">
+            <div class="card bg-dark text-light border-danger h-100">
+                <div class="card-body">
+                    <h4>  Команды</h4>
+                    <p>Профессиональные команды.</p>
+                    <a asp-controller="Teams" asp-action="Index"
+                       class="btn btn-outline-danger">
+                        Открыть раздел
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6 col-lg-4">
+            <div class="card bg-dark text-light border-danger h-100">
+                <div class="card-body">
+                    <h4>Игроки</h4>
+                    <p>Информация об игроках и их командах.</p>
+                    <a asp-controller="Players" asp-action="Index"
+                       class="btn btn-outline-danger">
+                        Открыть раздел
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6 col-lg-4">
+            <div class="card bg-dark text-light border-danger h-100">
+                <div class="card-body">
+                    <h4> Турниры</h4>
+                    <p>Турниры и призовые фонды.</p>
+                    <a asp-controller="Tournaments" asp-action="Index"
+                       class="btn btn-outline-danger">
+                        Открыть раздел
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6 col-lg-4">
+            <div class="card bg-dark text-light border-danger h-100">
+                <div class="card-body">
+                    <h4> Предметы</h4>
+                    <p>База предметов Dota 2.</p>
+                    <a asp-controller="Items" asp-action="Index"
+                       class="btn btn-outline-danger">
+                        Открыть раздел
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6 col-lg-4">
+            <div class="card bg-dark text-light border-danger h-100">
+                <div class="card-body">
+                    <h4>Матчи</h4>
+                    <p>Результаты матчей и соревнований.</p>
+                    <a asp-controller="Matches" asp-action="Index"
+                       class="btn btn-outline-danger">
+                        Открыть раздел
+                    </a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+
+
+
+

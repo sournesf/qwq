@@ -1,0 +1,117 @@
+﻿@model WebApplication2.Models.Hero
+
+@{
+    ViewData["Title"] = "Добавить героя";
+}
+
+<div class="container mt-5 mb-5">
+    <div class="card shadow-lg mx-auto" style="max-width: 650px;">
+        <div class="card-header bg-danger text-white p-3">
+            <h2 class="mb-0">⚔ Добавление героя Dota 2</h2>
+        </div>
+
+        <div class="card-body p-4">
+            <p class="text-muted mb-4">
+                Заполни информацию о герое и выбери его изображение.
+            </p>
+
+            <form asp-controller="Heroes"
+                  asp-action="Create"
+                  method="post"
+                  enctype="multipart/form-data">
+
+                @Html.AntiForgeryToken()
+
+                <div asp-validation-summary="All"
+                     class="text-danger mb-3"></div>
+
+                <div class="mb-3">
+                    <label asp-for="Name" class="form-label fw-bold">
+                        Имя героя
+                    </label>
+
+                    <input asp-for="Name"
+                           class="form-control"
+                           placeholder="Например, Anti-Mage" />
+
+                    <span asp-validation-for="Name"
+                          class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="Role" class="form-label fw-bold">
+                        Роль
+                    </label>
+
+                    <select asp-for="Role" class="form-select">
+                        <option value="">Выбери роль</option>
+                        <option value="carry">Carry</option>
+                        <option value="mid">Mid</option>
+                        <option value="offlane">Offlane</option>
+                        <option value="support">Support</option>
+                        <option value="hard support">Hard Support</option>
+                    </select>
+
+                    <span asp-validation-for="Role"
+                          class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="Description"
+                           class="form-label fw-bold">
+                        Описание
+                    </label>
+
+                    <textarea asp-for="Description"
+                              class="form-control"
+                              rows="4"
+                              placeholder="Расскажи о герое..."></textarea>
+
+                    <span asp-validation-for="Description"
+                          class="text-danger"></span>
+                </div>
+
+                <div class="mb-4">
+                    <label for="imageFile"
+                           class="form-label fw-bold">
+                        Изображение героя
+                    </label>
+
+                    <input type="file"
+                           id="imageFile"
+                           name="imageFile"
+                           class="form-control"
+                           accept=".jpg,.jpeg,.png,.webp" />
+
+                    <div class="form-text">
+                        Поддерживаются JPG, JPEG, PNG и WEBP.
+                        Максимальный размер — 5 МБ.
+                    </div>
+                </div>
+
+                <div class="d-flex gap-2 flex-wrap">
+                    <button type="submit" class="btn btn-danger">
+                        Добавить героя
+                    </button>
+
+                    <a asp-controller="Heroes"
+                       asp-action="Index"
+                       class="btn btn-outline-secondary">
+                        Назад к героям
+                    </a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
+
+
+
+
+
+
+

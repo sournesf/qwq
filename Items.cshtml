@@ -1,0 +1,51 @@
+﻿@model List<WebApplication2.Models.Item>
+
+@{
+    ViewData["Title"] = "Предметы";
+}
+
+<h1 class="text-center mb-5" style="color:#ff4d4d;">
+    Предметы Dota 2
+</h1>
+
+<div class="row">
+
+@foreach (var item in Model)
+{
+    <div class="col-md-4 mb-4">
+        <div class="card bg-dark text-white border-danger h-100 shadow">
+
+            <div style="height:300px; display:flex; align-items:center; justify-content:center; background-color:#111; padding:15px;">
+                <img src="~/images/@item.Image"
+                     style="width:100%; height:100%; object-fit:contain;" />
+            </div>
+
+            <div class="card-body text-center">
+
+                <h3>@item.Name</h3>
+
+                <p>
+                    <b>Тип:</b> @item.Type
+                </p>
+
+                <p>
+                    @item.Description
+                </p>
+
+            </div>
+
+        </div>
+    </div>
+}
+
+</div>
+
+<div class="text-center mt-4">
+    <a asp-controller="Home"
+       asp-action="Index"
+       class="btn btn-danger btn-lg">
+        ← На главную
+    </a>
+</div>
+
+

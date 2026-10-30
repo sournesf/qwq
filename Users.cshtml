@@ -1,0 +1,49 @@
+﻿@{
+    ViewData["Title"] = "Админ-панель";
+}
+
+<div class="container mt-4">
+    <h1> Админ-панель Dota 2</h1>
+    <p class="text-muted">Добро пожаловать, администратор!</p>
+
+    <hr />
+
+    <h3>Управление сайтом</h3>
+
+    <div class="list-group">
+        <a asp-controller="Heroes" asp-action="Index"
+           class="list-group-item list-group-item-action">
+            Герои
+        </a>
+
+        <a asp-controller="Teams" asp-action="Index"
+           class="list-group-item list-group-item-action">
+            Команды
+        </a>
+
+        <a asp-controller="Players" asp-action="Index"
+           class="list-group-item list-group-item-action">
+            Игроки
+        </a>
+
+        <a asp-controller="Tournaments" asp-action="Index"
+           class="list-group-item list-group-item-action">
+            Турниры
+        </a>
+
+        <a asp-controller="Items" asp-action="Index"
+           class="list-group-item list-group-item-action">
+            Предметы
+        </a>
+
+        <a asp-controller="Matches" asp-action="Index"
+           class="list-group-item list-group-item-action">
+            Матчи
+        </a>
+    </div>
+</div>
+
+
+
+
+

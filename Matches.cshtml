@@ -1,0 +1,60 @@
+﻿@model List<WebApplication2.Models.Match>
+
+@{
+    ViewData["Title"] = "Матчи";
+}
+
+<h1 class="text-center mb-5" style="color:#ff4d4d;">
+    Матчи Dota 2
+</h1>
+
+<div class="row">
+
+@foreach (var match in Model)
+{
+    <div class="col-md-4 mb-4">
+        <div class="card bg-dark text-white border-danger h-100 shadow">
+
+            <div class="card-body">
+
+                <h3 class="text-center mb-4">
+                    Матч #@match.MatchId
+                </h3>
+
+                <p>
+                    <b>Турнир:</b>
+                    @match.Tournament?.Name
+                </p>
+
+                <p>
+                    <b>Команда 1:</b>
+                    @match.Team1?.Name
+                </p>
+
+                <p>
+                    <b>Команда 2:</b>
+                    @match.Team2?.Name
+                </p>
+
+                <p>
+                    <b>Победитель:</b>
+                    @match.Winner?.Name
+                </p>
+
+                <p>
+                    <b>Дата:</b>
+                    @match.MatchDate.ToString("dd.MM.yyyy")
+                </p>
+
+            </div>
+
+        </div>
+    </div>
+}
+
+</div>
+
+
+
+
+

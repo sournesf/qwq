@@ -1,0 +1,200 @@
+﻿<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>@ViewData["Title"] - Dota 2</title>
+
+    <link rel="stylesheet"
+          href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+
+    <link rel="stylesheet"
+          href="~/css/site.css"
+          asp-append-version="true" />
+</head>
+
+<body class="bg-dark">
+
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-dark bg-black border-bottom border-danger">
+            <div class="container">
+
+                <a class="navbar-brand text-danger fw-bold"
+                   asp-controller="Home"
+                   asp-action="Index">
+                    DOTA 2
+                </a>
+
+                <button class="navbar-toggler"
+                        type="button"
+                        data-bs-toggle="collapse"
+                        data-bs-target="#navbarMenu"
+                        aria-controls="navbarMenu"
+                        aria-expanded="false"
+                        aria-label="Переключить навигацию">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse" id="navbarMenu">
+
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+
+                        <li class="nav-item">
+                            <a class="nav-link text-light"
+                               asp-controller="Home"
+                               asp-action="Index">
+                                Главная
+                            </a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link text-light"
+                               asp-controller="Home"
+                               asp-action="About">
+                                Герои
+                            </a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link text-light"
+                               asp-controller="Home"
+                               asp-action="Contact">
+                                Турниры
+                            </a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link text-light"
+                               asp-controller="Teams"
+                               asp-action="Index">
+                                Команды
+                            </a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link text-light"
+                               asp-controller="Players"
+                               asp-action="Index">
+                                Игроки
+                            </a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link text-light"
+                               asp-controller="Home"
+                               asp-action="Items">
+                                Предметы
+                            </a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link text-light"
+                               asp-controller="Home"
+                               asp-action="Matches">
+                                Матчи
+                            </a>
+                        </li>
+
+                        @if (User.IsInRole("Admin"))
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-light"
+                                   asp-controller="Admin"
+                                   asp-action="Index">
+                                    Админ-панель
+                                </a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a class="nav-link text-light"
+                                   asp-controller="UserRoles"
+                                   asp-action="Index">
+                                    Управление пользователями
+                                </a>
+                            </li>
+                        }                       
+                        @if (User.IsInRole("Captain"))
+                        {
+                        <li class="nav-item">
+                            <a class="nav-link text-light"
+                               asp-controller="Captain"
+                               asp-action="Index">
+                                Панель капитана
+                            </a>
+                        </li>
+                        }
+                    </ul>
+
+                    <ul class="navbar-nav">
+
+                        @if (User.Identity != null &&
+                             User.Identity.IsAuthenticated)
+                        {
+                            <li class="nav-item">
+                                <span class="nav-link text-light">
+                                    Привет, @User.Identity.Name
+                                </span>
+                            </li>
+
+                            <li class="nav-item">
+                                <form asp-area="Identity"
+                                      asp-page="/Account/Logout"
+                                      method="post">
+                                    @Html.AntiForgeryToken()
+
+                                    <button type="submit"
+                                            class="btn btn-danger ms-2">
+                                        Выйти
+                                    </button>
+                                </form>
+                            </li>
+                        }
+                        else
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-light"
+                                   asp-area="Identity"
+                                   asp-page="/Account/Login">
+                                    Войти
+                                </a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a class="nav-link text-light"
+                                   asp-area="Identity"
+                                   asp-page="/Account/Register">
+                                    Регистрация
+                                </a>
+                            </li>
+                        }
+
+                    </ul>
+
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <div class="container py-4">
+
+        <main role="main">
+            @RenderBody()
+        </main>
+
+    </div>
+
+    <footer class="border-top border-danger text-secondary text-center py-3">
+        © 2026 | Dota 2 Fan Site | ASP.NET MVC
+    </footer>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script src="~/js/site.js" asp-append-version="true"></script>
+
+    @await RenderSectionAsync("Scripts", required: false)
+
+</body>
+</html>

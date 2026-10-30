@@ -1,0 +1,196 @@
+﻿@model WebApplication2.Models.Hero
+
+@{
+    ViewData["Title"] = "Редактирование героя";
+}
+
+<style>
+    .edit-hero-page {
+        max-width: 760px;
+        margin: 45px auto;
+    }
+
+    .edit-hero-card {
+        color: #f1f1f1;
+        background: #1d1e22;
+        border: 1px solid #393a40;
+        border-radius: 12px;
+        overflow: hidden;
+    }
+
+    .edit-hero-header {
+        background: linear-gradient(135deg, #742b27, #321c1b);
+        padding: 24px;
+        border-bottom: 1px solid #63332f;
+    }
+
+    .edit-hero-body {
+        padding: 28px;
+    }
+
+        .edit-hero-body .form-label {
+            color: #e6e6e6;
+            font-weight: 600;
+        }
+
+        .edit-hero-body .form-control {
+            background: #28292e;
+            color: #fff;
+            border-color: #484950;
+        }
+
+            .edit-hero-body .form-control:focus {
+                border-color: #d34b41;
+                box-shadow: 0 0 0 0.2rem #d34b4130;
+            }
+
+        .edit-hero-body .form-text {
+            color: #a7a7ad;
+        }
+
+    .current-hero-image {
+        max-width: 100%;
+        width: 260px;
+        max-height: 220px;
+        object-fit: cover;
+        border-radius: 8px;
+        border: 1px solid #484950;
+    }
+
+    .edit-hero-actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+</style>
+
+<div class="container edit-hero-page">
+    <div class="edit-hero-card shadow-lg">
+
+        <div class="edit-hero-header">
+            <h1 class="h3 fw-bold mb-2">✏ Редактирование героя</h1>
+            <p class="mb-0 text-white-50">
+                Измени характеристики героя Dota 2
+            </p>
+        </div>
+
+        <div class="edit-hero-body">
+            <form asp-controller="Heroes"
+                  asp-action="Edit"
+                  asp-route-id="@Model.HeroId"
+                  method="post"
+                  enctype="multipart/form-data">
+
+                @Html.AntiForgeryToken()
+
+                <input type="hidden" asp-for="HeroId" />
+
+                <div asp-validation-summary="ModelOnly"
+                     class="text-danger mb-3"></div>
+
+                <div class="mb-3">
+                    <label asp-for="Name" class="form-label">
+                        Имя героя
+                    </label>
+
+                    <input asp-for="Name"
+                           class="form-control"
+                           placeholder="Например, Anti-Mage" />
+
+                    <span asp-validation-for="Name"
+                          class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="Role" class="form-label">
+                        Роль
+                    </label>
+
+                    <input asp-for="Role"
+                           class="form-control"
+                           placeholder="Например, Carry" />
+
+                    <span asp-validation-for="Role"
+                          class="text-danger"></span>
+                </div>
+
+                <div class="mb-4">
+                    <label asp-for="Description" class="form-label">
+                        Описание
+                    </label>
+
+                    <textarea asp-for="Description"
+                              class="form-control"
+                              rows="4"
+                              placeholder="Расскажи о герое..."></textarea>
+
+                    <span asp-validation-for="Description"
+                          class="text-danger"></span>
+                </div>
+
+                <div class="mb-4">
+                    <label class="form-label">
+                        Текущее изображение
+                    </label>
+
+                    @if (!string.IsNullOrWhiteSpace(Model.Image))
+                    {
+                        <div class="mb-3">
+                            <img src="@("/images/" + System.IO.Path.GetFileName(Model.Image))"
+                                 alt="@Model.Name"
+                                 class="current-hero-image" />
+                        </div>
+                        
+}
+                    else
+                    {
+                        <p class="text-white-50">
+                            У героя пока нет изображения.
+                        </p>
+                    }
+
+                    <label for="imageFile" class="form-label">
+                        Загрузить новую картинку
+                    </label>
+
+                    <input type="file"
+                           id="imageFile"
+                           name="imageFile"
+                           class="form-control"
+                           accept=".jpg,.jpeg,.png,.webp" />
+
+                    <div class="form-text mt-2">
+                        JPG, JPEG, PNG или WEBP. Максимум 5 МБ.
+                        Если не выбирать файл, текущая картинка останется.
+                    </div>
+
+                    <span asp-validation-for="Image"
+                          class="text-danger"></span>
+                </div>
+
+                <div class="edit-hero-actions">
+                    <button type="submit" class="btn btn-danger">
+                        Сохранить изменения
+                    </button>
+
+                    <a asp-controller="Heroes"
+                       asp-action="Index"
+                       class="btn btn-outline-light">
+                        Отмена
+                    </a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
+
+
+
+
+
+
+
